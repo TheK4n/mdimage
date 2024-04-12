@@ -1,12 +1,8 @@
 
-
--- Creates an object for the module. All of the module's
--- functions are associated with this object, which is
--- returned when the module is called with `require`.
 local M = {}
 
 local defaults = {
-    img_path = ".",
+    target_path = ".",
 }
 
 M.options = {}

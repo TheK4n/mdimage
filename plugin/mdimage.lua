@@ -18,7 +18,7 @@ local function pasteUnderCursor(text)
 end
 
 function CopyImageAndPasteLink(input)
-    local note_prefix = require("mdimage").options.img_path
+    local note_prefix = require("mdimage").options.target_path
 
     local new_imagename = formatFilename(input.args)
     local new_imagepath = note_prefix .. "/" .. new_imagename
