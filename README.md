@@ -41,3 +41,7 @@ local default_config = {
 Command: \
 `:PasteImage ~/path/to/image` \
 will copy specified image to target directory and paste link to image
+
+Command: \
+`:PasteImage` \
+will copy image from clipboard to target directory and paste link to image
