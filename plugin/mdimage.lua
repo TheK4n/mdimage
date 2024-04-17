@@ -1,10 +1,10 @@
 
-local function copyFile(filename, newfilename)
-    vim.fn.system({'cp', filename, newfilename})
+local function copyFile(newfilename)
+    vim.cmd('!' .. 'xclip -selection clipboard -t image/jpeg -o > ' .. newfilename)
 end
 
-local function formatFilename(filename)
-    return os.time() .. "_" .. vim.fs.basename(vim.fs.normalize(filename))
+local function generateFilename()
+    return os.time() .. ".jpg"
 end
 
 local function createLink(path, name)
@@ -17,13 +17,13 @@ local function pasteUnderCursor(text)
     vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { text })
 end
 
-function CopyImageAndPasteLink(input)
+function CopyImageAndPasteLink()
     local note_prefix = require("mdimage").options.target_path
 
-    local new_imagename = formatFilename(input.args)
+    local new_imagename = generateFilename()
     local new_imagepath = note_prefix .. "/" .. new_imagename
 
-    copyFile(input.args, new_imagepath)
+    copyFile(new_imagepath)
 
     local md_tag = createLink(new_imagepath, new_imagename)
     pasteUnderCursor(md_tag)
@@ -33,6 +33,6 @@ end
 vim.api.nvim_create_autocmd({"FileType", "BufEnter"}, {
     pattern = "markdown",
     callback = function()
-        vim.api.nvim_create_user_command("PasteImage", CopyImageAndPasteLink, { nargs = 1, complete = 'file' })
+        vim.api.nvim_create_user_command("PasteImage", CopyImageAndPasteLink, {})
     end
 })
