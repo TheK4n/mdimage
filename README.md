@@ -32,7 +32,7 @@ By default plugin will copy image to current work directory
 
 ```lua
 local default_config = {
-    target_path = "."
+    target_path = "./.img"
 }
 ```
 

@@ -2,7 +2,7 @@
 local M = {}
 
 local defaults = {
-    target_path = ".",
+    target_path = "./.img",
 }
 
 M.options = {}

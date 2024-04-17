@@ -26,14 +26,16 @@ local function pasteUnderCursor(text)
 end
 
 function CopyImageAndPasteLink(input)
-    local note_prefix = require("mdimage").options.target_path
+    local target_path = require("mdimage").options.target_path
+
+    vim.fn.mkdir(target_path, "p")
 
     local new_imagename
     local new_imagepath
 
     if (input.args ~= '') then
         new_imagename = formatFilename(input.args)
-        new_imagepath = note_prefix .. "/" .. new_imagename
+        new_imagepath = target_path .. "/" .. new_imagename
 
         if vim.fn.filereadable(input.args) == 0 then
             error("File not found")
@@ -43,7 +45,7 @@ function CopyImageAndPasteLink(input)
         copyFile(input.args, new_imagepath)
     else
         new_imagename = generateFilename()
-        new_imagepath = note_prefix .. "/" .. new_imagename
+        new_imagepath = target_path .. "/" .. new_imagename
 
         copyFileFromClipboard(new_imagepath)
         if vim.v.shell_error ~= 0 then
